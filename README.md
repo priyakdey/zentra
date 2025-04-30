@@ -1,6 +1,7 @@
-# 🧠 Zentra
+# Zentra
 
 **Zentra** is a minimalist yet powerful full-stack **Todo + Planner** application designed as an educational project to explore modern web development.
+The word **zentra** is derived from the word - _central_ or _zen_
 
 Built with:
 
@@ -31,7 +32,7 @@ Built with:
 - Axios
 - Tailwind CSS (or shadcn/ui)
 
-### ⚙️ Backend
+### ⚙️  Backend
 - Spring Boot 3.x
 - Spring Security + JWT Authentication
 - Spring Data JPA
