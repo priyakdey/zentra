@@ -59,7 +59,7 @@ public class SignupController {
 
         logger.info("New account created");
         return ResponseEntity.created(URI.create("/api/v1/users/" + id))
-                .body("User created successfully");
+                .build();
     }
 
 }

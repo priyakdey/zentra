@@ -23,11 +23,11 @@ public class SignupServiceImpl implements SignupService {
     @Override
     public int signup(String name, String username, String password, String email) {
         if (accountRepository.existsByUsername(username)) {
-            throw new UsernameExistsException("Username is taken exists");
+            throw new UsernameExistsException("Username is taken");
         }
 
         if (accountRepository.existsByEmail(email)) {
-            throw new EmailExistsException("Username is taken exists");
+            throw new EmailExistsException("This email is already registered");
         }
 
         Account account = new Account(username, email, password, name);
