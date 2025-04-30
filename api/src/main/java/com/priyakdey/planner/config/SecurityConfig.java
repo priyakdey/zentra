@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 /**
  * @author Priyak Dey
