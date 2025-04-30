@@ -4,6 +4,8 @@ import com.priyakdey.planner.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * @author Priyak Dey
  */
@@ -14,4 +16,5 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     boolean existsByEmail(String email);
 
+    Optional<Account> findByUsername(String username);
 }

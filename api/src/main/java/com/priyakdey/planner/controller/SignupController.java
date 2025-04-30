@@ -51,9 +51,10 @@ public class SignupController {
             throw new BadRequestException(result.getMessage());
         }
 
-        // TODO: Hash the password
-        String password = passwordEncoder.encode(new String(newUser.getPassword()));
-        Arrays.fill(password.toCharArray(), '*');
+        char[] _password = newUser.getPassword();
+        String password = passwordEncoder.encode(new String(_password));
+        Arrays.fill(_password, '\0');
+
         int id = signupService.signup(newUser.getName(), newUser.getUsername(),
                 password, newUser.getEmail());
 
