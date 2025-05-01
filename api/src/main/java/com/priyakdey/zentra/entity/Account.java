@@ -6,6 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * @author Priyak Dey
@@ -40,7 +41,7 @@ public class Account implements Serializable {
 
     // TODO: might need a transformer for this
     @Column
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
 
     public Account() {
     }
@@ -50,8 +51,9 @@ public class Account implements Serializable {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.isEnabled = false;
-        this.createdAt = LocalDateTime.now(Clock.systemUTC());
+        // TODO: integrate email service for activating accounts
+        this.isEnabled = true;
+        this.createdAt = ZonedDateTime.now(Clock.systemUTC());
     }
 
     public int getId() {
@@ -102,11 +104,11 @@ public class Account implements Serializable {
         isEnabled = enabled;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

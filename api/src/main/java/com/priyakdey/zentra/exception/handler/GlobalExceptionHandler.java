@@ -1,6 +1,5 @@
 package com.priyakdey.zentra.exception.handler;
 
-import com.priyakdey.planner.exception.*;
 import com.priyakdey.zentra.exception.*;
 import com.priyakdey.zentra.model.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
