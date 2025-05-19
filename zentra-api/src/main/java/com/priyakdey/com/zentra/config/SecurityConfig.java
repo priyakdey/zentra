@@ -1,7 +1,8 @@
 package com.priyakdey.com.zentra.config;
 
 import ch.qos.logback.core.net.ssl.SecureRandomFactoryBean;
-import com.priyakdey.com.zentra.security.SecureBCryptPasswordEncoder;
+import com.priyakdey.com.zentra.security.encoder.SecureBCryptPasswordEncoder;
+import com.priyakdey.com.zentra.security.filter.AuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,12 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 
-import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion.$2B;
 
@@ -29,7 +30,8 @@ import static org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.B
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http, AuthenticationFilter authenticationFilter) throws Exception {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -38,6 +40,7 @@ public class SecurityConfig {
                                 .requestMatchers(POST, "/v1/signup").permitAll()
                                 .anyRequest().authenticated()
                 )
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }

@@ -5,7 +5,7 @@ import com.priyakdey.com.zentra.exception.EmailExistsException;
 import com.priyakdey.com.zentra.exception.InvalidCredentialsException;
 import com.priyakdey.com.zentra.model.dto.AuthDto;
 import com.priyakdey.com.zentra.repository.AccountRepository;
-import com.priyakdey.com.zentra.security.SecureCharSequence;
+import com.priyakdey.com.zentra.security.core.SecureCharSequence;
 import com.priyakdey.com.zentra.service.AuthenticationService;
 import com.priyakdey.com.zentra.service.TokenService;
 import org.slf4j.Logger;

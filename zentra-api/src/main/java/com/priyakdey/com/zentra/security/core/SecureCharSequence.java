@@ -1,4 +1,4 @@
-package com.priyakdey.com.zentra.security;
+package com.priyakdey.com.zentra.security.core;
 
 import java.util.Arrays;
 import java.util.Objects;

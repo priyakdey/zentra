@@ -1,6 +1,6 @@
 package com.priyakdey.com.zentra.model.request;
 
-import com.priyakdey.com.zentra.security.SecureCharSequence;
+import com.priyakdey.com.zentra.security.core.SecureCharSequence;
 
 import java.io.Serial;
 import java.io.Serializable;

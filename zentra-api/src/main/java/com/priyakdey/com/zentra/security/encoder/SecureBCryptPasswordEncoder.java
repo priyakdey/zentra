@@ -1,5 +1,6 @@
-package com.priyakdey.com.zentra.security;
+package com.priyakdey.com.zentra.security.encoder;
 
+import com.priyakdey.com.zentra.security.core.SecureCharSequence;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.security.crypto.password.PasswordEncoder;

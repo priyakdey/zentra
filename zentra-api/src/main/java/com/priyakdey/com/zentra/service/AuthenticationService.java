@@ -1,7 +1,7 @@
 package com.priyakdey.com.zentra.service;
 
 import com.priyakdey.com.zentra.model.dto.AuthDto;
-import com.priyakdey.com.zentra.security.SecureCharSequence;
+import com.priyakdey.com.zentra.security.core.SecureCharSequence;
 
 /**
  * @author Priyak Dey
