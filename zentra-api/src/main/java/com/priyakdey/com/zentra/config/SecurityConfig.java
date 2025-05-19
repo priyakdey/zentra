@@ -1,6 +1,7 @@
 package com.priyakdey.com.zentra.config;
 
 import ch.qos.logback.core.net.ssl.SecureRandomFactoryBean;
+import com.priyakdey.com.zentra.security.SecureBCryptPasswordEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,7 +10,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.security.NoSuchAlgorithmException;
@@ -35,7 +36,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(POST, "/v1/login").permitAll()
                                 .requestMatchers(POST, "/v1/signup").permitAll()
-                                .requestMatchers(GET, "/testing").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
@@ -50,11 +50,11 @@ public class SecurityConfig {
 
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder()
+    public PasswordEncoder passwordEncoder()
             throws NoSuchAlgorithmException, NoSuchProviderException {
         SecureRandomFactoryBean secureRandomFactoryBean = new SecureRandomFactoryBean();
         SecureRandom random = secureRandomFactoryBean.createSecureRandom();
-        return new BCryptPasswordEncoder($2B, 10, random);
+        return new SecureBCryptPasswordEncoder($2B, 10, random);
     }
 
 }
