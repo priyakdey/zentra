@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/zentra
+    username: ${ZENTRA_DB_USER}
+    password: ${ZENTRA_DB_PASSWORD}
+    hikari:
+      auto-commit: false
+      minimum-idle: 1
+      maximum-pool-size: 5
