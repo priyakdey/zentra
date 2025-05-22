@@ -2,6 +2,7 @@ package com.priyakdey.com.zentra.exception.handler;
 
 import com.priyakdey.com.zentra.exception.EmailExistsException;
 import com.priyakdey.com.zentra.exception.InvalidCredentialsException;
+import com.priyakdey.com.zentra.exception.InvalidRequestException;
 import com.priyakdey.com.zentra.model.response.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.*;
 
 /**
  * @author Priyak Dey
@@ -20,6 +20,12 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(InvalidRequestException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidRequestException(InvalidRequestException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Invalid Input", ex.getMessage());
+        return ResponseEntity.status(BAD_REQUEST).body(errorResponse);
+    }
 
     @ExceptionHandler(EmailExistsException.class)
     public ResponseEntity<ErrorResponse> handleEmailExistsException() {

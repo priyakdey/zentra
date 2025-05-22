@@ -8,6 +8,10 @@ import java.util.Objects;
  */
 public record SecureCharSequence(char[] data) implements CharSequence {
 
+    public SecureCharSequence {
+        Objects.requireNonNull(data);
+    }
+
     @Override
     public int length() {
         return data.length;
@@ -32,5 +36,9 @@ public record SecureCharSequence(char[] data) implements CharSequence {
     @Override
     public String toString() {
         return "";
+    }
+
+    public void clear() {
+        Arrays.fill(data, (char) 0x0);
     }
 }

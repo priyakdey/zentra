@@ -1,9 +1,13 @@
 package com.priyakdey.com.zentra.controller;
 
+import com.priyakdey.com.zentra.exception.InvalidRequestException;
 import com.priyakdey.com.zentra.model.dto.AuthDto;
-import com.priyakdey.com.zentra.model.request.SignupRequest;
+import com.priyakdey.com.zentra.model.request.AuthRequest;
 import com.priyakdey.com.zentra.model.response.AuthResponse;
+import com.priyakdey.com.zentra.security.core.SecureCharSequence;
 import com.priyakdey.com.zentra.service.AuthenticationService;
+import com.priyakdey.com.zentra.util.validator.AuthRequestValidator;
+import com.priyakdey.com.zentra.util.validator.core.ValidationResult;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +42,20 @@ public class SignupController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthResponse> signup(@RequestBody SignupRequest signupRequest,
+    public ResponseEntity<AuthResponse> signup(@RequestBody AuthRequest authRequest,
                                                HttpServletResponse response) {
-        String email = signupRequest.getEmail();
-        String password = signupRequest.getPassword();
-        password = passwordEncoder.encode(password);
+        ValidationResult result = AuthRequestValidator.isValidEmail()
+                .and(AuthRequestValidator.isValidPassword())
+                .apply(authRequest);
+
+        if (!result.isSuccess()) {
+            throw new InvalidRequestException(result.message());
+        }
+
+        String email = authRequest.getEmail();
+        SecureCharSequence rawPassword = authRequest.getPassword();
+        String password = passwordEncoder.encode(rawPassword);
+        rawPassword.clear();
 
         AuthDto authDto = authenticationService.createAccount(email, password);
         AuthResponse authResponse = new AuthResponse();

@@ -1,9 +1,12 @@
 package com.priyakdey.com.zentra.controller;
 
+import com.priyakdey.com.zentra.exception.InvalidRequestException;
 import com.priyakdey.com.zentra.model.dto.AuthDto;
-import com.priyakdey.com.zentra.model.request.LoginRequest;
+import com.priyakdey.com.zentra.model.request.AuthRequest;
 import com.priyakdey.com.zentra.model.response.AuthResponse;
 import com.priyakdey.com.zentra.service.AuthenticationService;
+import com.priyakdey.com.zentra.util.validator.AuthRequestValidator;
+import com.priyakdey.com.zentra.util.validator.core.ValidationResult;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +32,15 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest,
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest loginRequest,
                                               HttpServletResponse response) {
+        ValidationResult result = AuthRequestValidator.isValidEmail()
+                .and(AuthRequestValidator.isValidPassword())
+                .apply(loginRequest);
+        if (!result.isSuccess()) {
+            throw new InvalidRequestException(result.message());
+        }
+
         AuthDto authDto = authenticationService.authenticate(loginRequest.getEmail(),
                 loginRequest.getPassword());
 
