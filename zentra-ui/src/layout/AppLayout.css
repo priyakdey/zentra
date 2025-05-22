@@ -1,0 +1,14 @@
+.AppLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.AppLayout__main-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+main {
+  padding: 20px;
+}
