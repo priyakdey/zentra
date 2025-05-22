@@ -45,7 +45,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new EmailExistsException();
         }
 
-        Account account = new Account(email, password);
+        Account account = new Account("", email, password);
         account = accountRepository.save(account);
 
         Integer accountId = account.getId();
