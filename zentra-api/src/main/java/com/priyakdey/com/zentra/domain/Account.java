@@ -22,6 +22,9 @@ public class Account implements Serializable {
     private Integer id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -33,7 +36,8 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(String email, String passwordHash) {
+    public Account(String name, String email, String passwordHash) {
+        this.name = name;
         this.email = email;
         this.passwordHash = passwordHash;
         this.createdAt = ZonedDateTime.now(Clock.systemUTC());
@@ -45,6 +49,14 @@ public class Account implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -70,4 +82,5 @@ public class Account implements Serializable {
     public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
 }

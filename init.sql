@@ -38,6 +38,7 @@ GRANT USAGE, SELECT, UPDATE ON SEQUENCE seq_task_id TO zentra_user;
 CREATE TABLE account
 (
     id            INT          NOT NULL DEFAULT nextval('seq_account_id'),
+    name          VARCHAR(255) NOT NULL,
     email         VARCHAR(254) NOT NULL,
     password_hash TEXT         NOT NULL,
     created_at    timestamptz  NOT NULL DEFAULT now(),
