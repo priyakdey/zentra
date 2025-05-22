@@ -31,7 +31,7 @@ public interface AuthRequestValidator extends Function<AuthRequest, ValidationRe
             } else if (email.length() > EMAIL_MAX_LENGTH) {
                 return new ValidationResult(INVALID_EMAIL, "Email address must not exceed 254 characters");
             } else if (!EMAIL_PATTERN.matcher(email).matches()) {
-                return new ValidationResult(INVALID_EMAIL, "Email address is not valid");
+                return new ValidationResult(INVALID_EMAIL, "Please enter a valid email address");
             }
 
             return SUCCESS;

@@ -1,0 +1,29 @@
+.WelcomePage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.WelcomePage__auth-container {
+  height: 450px;
+  width: 400px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+.WelcomePage__tabs {
+  padding: 12px;
+  width: 400px;
+}
+
+.WelcomePage__tabs_list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.WelcomePage__card {
+  height: 100%;
+}

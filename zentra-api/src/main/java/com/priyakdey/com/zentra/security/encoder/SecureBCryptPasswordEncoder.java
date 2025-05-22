@@ -63,7 +63,7 @@ public class SecureBCryptPasswordEncoder implements PasswordEncoder {
         }
 
         byte[] buf = toUTF8Bytes(data);
-        boolean isMatch = BCrypt.checkpw(buf, rawPassword.toString());
+        boolean isMatch = BCrypt.checkpw(buf, encodedPassword);
 
         Arrays.fill(buf, (byte) 0x0);
         Arrays.fill(data, (char) 0x0);

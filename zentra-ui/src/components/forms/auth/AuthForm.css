@@ -1,0 +1,26 @@
+.AuthForm-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  height: 100%;
+}
+
+.WelcomePage__card-header {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.AuthForm_error_message {
+  font-size: 10px;
+}
+
+.AuthForm-form_btn:hover {
+  cursor: pointer;
+}
+
+/* input:-webkit-autofill { */
+/*   box-shadow: 0 0 0 1000px #171A1F inset; */
+/*   -webkit-text-fill-color: white; */
+/*   transition: background-color 9999s ease-in-out 0s; */
+/* } */

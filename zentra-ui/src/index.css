@@ -128,5 +128,6 @@ body {
   min-height: 100%;
   min-width: 100%;
   font-family: "Inter", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 400;
 }
