@@ -1,18 +1,12 @@
 import { authenticateUser, createAccount } from "@/service/authService.ts";
-import type {
-  AuthResponse,
-  LoginRequest,
-  NewAccountRequest
-} from "@/types/api.types.ts";
-import { ZentraError } from "@/types/ui.types.ts";
+import type { LoginRequest, NewAccountRequest } from "@/types/api.types.ts";
 import * as React from "react";
 import { createContext, useState } from "react";
-import { toast } from "sonner";
 
 interface AuthContextType {
   isLoggedIn: boolean;
   login: (body: LoginRequest) => Promise<void>;
-  signup: (body: NewAccountRequest) => void;
+  signup: (body: NewAccountRequest) => Promise<void>;
   logout: () => void;
 }
 
@@ -31,17 +25,9 @@ function AuthProvider({ children }: AuthProviderPropsType) {
     setAccountId(response.accountId);
   };
 
-  const signup = (body: NewAccountRequest): void => {
-    createAccount(body)
-      .then((response: AuthResponse) => {
-        setAccountId(response.accountId);
-      })
-      .catch((error: ZentraError) => {
-        const message = error.message;
-        const description = error.description;
-        console.error(`ERROR: ${message}: ${description}`);
-        toast.error(message, { description: description });
-      });
+  const signup = async (body: NewAccountRequest): Promise<void> => {
+    const response = await createAccount(body);
+    setAccountId(response.accountId);
   };
 
   const logout = () => {

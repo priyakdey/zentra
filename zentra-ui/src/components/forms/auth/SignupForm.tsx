@@ -8,10 +8,14 @@ import {
   FormMessage
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
+import useAccount from "@/hooks/useAccount.ts";
 import useAuth from "@/hooks/useAuth.ts";
 import { emailSchema, nameSchema, passwordSchema } from "@/types/schemas.ts";
+import type { ZentraError } from "@/types/ui.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 import { z } from "zod";
 import "./AuthForm.css";
 
@@ -24,6 +28,9 @@ const signupSchema = z.object({
 
 function SignupForm() {
   const { signup } = useAuth();
+  const { refresh } = useAccount();
+
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
@@ -34,8 +41,22 @@ function SignupForm() {
     }
   });
 
-  const handleLogin = (values: z.infer<typeof signupSchema>) => {
-    signup(values);
+  const handleLogin = async (values: z.infer<typeof signupSchema>) => {
+    try {
+      await signup(values);
+      await refresh();
+      navigate("/home", { replace: true });
+    } catch(error) {
+      const err = error as ZentraError;
+      if (err.status === 401 || err.status === 403) {
+        toast.error("Session expired", {
+          description: "Please log in again to continue."
+        });
+        navigate("/", { replace: true });
+      } else {
+        toast.error(err.message, { description: err.description });
+      }
+    }
   };
 
   return (
