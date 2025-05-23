@@ -1,5 +1,6 @@
 package com.priyakdey.com.zentra.exception.handler;
 
+import com.priyakdey.com.zentra.exception.AccountNotFoundException;
 import com.priyakdey.com.zentra.exception.EmailExistsException;
 import com.priyakdey.com.zentra.exception.InvalidCredentialsException;
 import com.priyakdey.com.zentra.exception.InvalidRequestException;
@@ -39,6 +40,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse("Invalid credentials",
                 "The credentials you entered are incorrect. Please try again.");
         return ResponseEntity.status(UNAUTHORIZED).body(errorResponse);
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ErrorResponse> AccountNotFoundException() {
+        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(Exception.class)

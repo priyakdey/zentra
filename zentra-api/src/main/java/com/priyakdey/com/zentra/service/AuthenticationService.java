@@ -8,7 +8,7 @@ import com.priyakdey.com.zentra.security.core.SecureCharSequence;
  */
 public interface AuthenticationService {
 
-    AuthDto createAccount(String email, String password);
+    AuthDto createAccount(String name, String email, String password);
 
     AuthDto authenticate(String email, SecureCharSequence password);
 }

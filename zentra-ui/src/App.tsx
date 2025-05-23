@@ -10,11 +10,15 @@ function App() {
       <Routes>
         <Route path="/" element={<WelcomePage />} />
       </Routes>
-      <Toaster richColors={true} theme="dark" dir="ltr" toastOptions={{
-        duration: 5000,
-        closeButton: true,
-        closeButtonAriaLabel: "Close"
-      }}
+      <Toaster
+        richColors={true}
+        theme="dark"
+        dir="ltr"
+        toastOptions={{
+          duration: 5000,
+          closeButton: true,
+          closeButtonAriaLabel: "Close"
+        }}
       />
     </>
   );

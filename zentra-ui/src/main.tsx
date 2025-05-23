@@ -1,4 +1,5 @@
 import AuthProvider from "@/context/AuthContext.tsx";
+import AccountProvider from "@/context/AccountContext.tsx";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
@@ -8,9 +9,11 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <AuthProvider>
-      <StrictMode>
-        <App />
-      </StrictMode>
+      <AccountProvider>
+        <StrictMode>
+          <App />
+        </StrictMode>
+      </AccountProvider>
     </AuthProvider>
   </BrowserRouter>
 );

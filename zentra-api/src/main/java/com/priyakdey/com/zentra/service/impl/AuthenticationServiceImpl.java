@@ -38,14 +38,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public AuthDto createAccount(String email, String password) {
+    public AuthDto createAccount(String name, String email, String password) {
         log.info("Trying to create a new account");
 
         if (accountRepository.existsByEmail(email)) {
             throw new EmailExistsException();
         }
 
-        Account account = new Account("", email, password);
+        Account account = new Account(name, email, password);
         account = accountRepository.save(account);
 
         Integer accountId = account.getId();

@@ -2,11 +2,11 @@ package com.priyakdey.com.zentra.controller;
 
 import com.priyakdey.com.zentra.exception.InvalidRequestException;
 import com.priyakdey.com.zentra.model.dto.AuthDto;
-import com.priyakdey.com.zentra.model.request.AuthRequest;
+import com.priyakdey.com.zentra.model.request.NewAccountRequest;
 import com.priyakdey.com.zentra.model.response.AuthResponse;
 import com.priyakdey.com.zentra.security.core.SecureCharSequence;
 import com.priyakdey.com.zentra.service.AuthenticationService;
-import com.priyakdey.com.zentra.util.validator.AuthRequestValidator;
+import com.priyakdey.com.zentra.util.validator.NewAccountRequestValidator;
 import com.priyakdey.com.zentra.util.validator.core.ValidationResult;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -42,22 +42,26 @@ public class SignupController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthResponse> signup(@RequestBody AuthRequest authRequest,
+    public ResponseEntity<AuthResponse> signup(@RequestBody NewAccountRequest newAccountRequest,
                                                HttpServletResponse response) {
-        ValidationResult result = AuthRequestValidator.isValidEmail()
-                .and(AuthRequestValidator.isValidPassword())
-                .apply(authRequest);
+        log.info("Signup request received");
+        ValidationResult result = NewAccountRequestValidator.isValidName()
+                .and(NewAccountRequestValidator.isValidEmail())
+                .and(NewAccountRequestValidator.isValidPassword())
+                .apply(newAccountRequest);
 
         if (!result.isSuccess()) {
             throw new InvalidRequestException(result.message());
         }
 
-        String email = authRequest.getEmail();
-        SecureCharSequence rawPassword = authRequest.getPassword();
+        String email = newAccountRequest.getEmail();
+        SecureCharSequence rawPassword = newAccountRequest.getPassword();
         String password = passwordEncoder.encode(rawPassword);
         rawPassword.clear();
 
-        AuthDto authDto = authenticationService.createAccount(email, password);
+        String name = newAccountRequest.getName();
+
+        AuthDto authDto = authenticationService.createAccount(name, email, password);
         AuthResponse authResponse = new AuthResponse();
         Integer accountId = authDto.accountId();
         authResponse.setAccountId(accountId);

@@ -8,35 +8,55 @@ import {
   FormMessage
 } from "@/components/ui/form.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { emailSchema, passwordSchema } from "@/types/schemas.ts";
+import useAuth from "@/hooks/useAuth.ts";
+import { emailSchema, nameSchema, passwordSchema } from "@/types/schemas.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import "./AuthForm.css";
 
 const signupSchema = z.object({
+  name: nameSchema,
   email: emailSchema,
   password: passwordSchema
 });
 
 
-function LoginForm() {
+function SignupForm() {
+  const { signup } = useAuth();
+
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: ""
     }
   });
 
   const handleLogin = (values: z.infer<typeof signupSchema>) => {
-    console.log(values);
+    signup(values);
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleLogin)} className="AuthForm-form"
             noValidate>
+        <FormField
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input type="text"
+                       placeholder="John Doe" {...field} />
+              </FormControl>
+              <FormMessage className="AuthForm_error_message" />
+            </FormItem>
+          )}
+        >
+        </FormField>
         <FormField
           name="email"
           control={form.control}
@@ -76,4 +96,4 @@ function LoginForm() {
     ;
 }
 
-export default LoginForm;
+export default SignupForm;

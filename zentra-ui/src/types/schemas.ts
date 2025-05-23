@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+export const nameSchema = z.string()
+  .min(1, "Name is required");
+
 export const emailSchema = z.string()
   .min(1, "Email is required")
   .max(254, "Email address must not exceed 254 characters")

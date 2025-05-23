@@ -12,6 +12,7 @@ import useAuth from "@/hooks/useAuth.ts";
 import { emailSchema, passwordSchema } from "@/types/schemas.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { z } from "zod";
 import "./AuthForm.css";
 
@@ -22,7 +23,8 @@ const loginSchema = z.object({
 
 
 function LoginForm() {
-  const { login } = useAuth();
+  const { isLoggedIn, login } = useAuth();
+  const navigate = useNavigate();
 
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -33,8 +35,11 @@ function LoginForm() {
     }
   });
 
-  const handleLogin = (values: z.infer<typeof loginSchema>) => {
+  const handleLogin = async (values: z.infer<typeof loginSchema>) => {
     login(values);
+    if (isLoggedIn) {
+      navigate("/home", { replace: true });
+    }
   };
 
   return (
