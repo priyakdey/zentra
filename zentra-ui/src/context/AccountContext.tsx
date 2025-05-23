@@ -1,14 +1,12 @@
 import { getAccountDetails } from "@/service/accountService.ts";
-import type { AccountDetailsResponse } from "@/types/api.types.ts";
-import type { ZentraError } from "@/types/ui.types.ts";
 import * as React from "react";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 interface AccountContextType {
   accountId?: number;
   name?: string;
   isLoading: boolean;
-  getProfileDetails: () => void;
+  refresh: () => Promise<void>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -21,33 +19,20 @@ interface AccountProviderPropTypes {
 function AccountProvider({ children }: AccountProviderPropTypes) {
   const [ accountId, setAccountId ] = useState<number | undefined>(undefined);
   const [ name, setName ] = useState<string | undefined>(undefined);
-
   const [ isLoading, setIsLoading ] = useState<boolean>(true);
 
-  useEffect(() => {
-    getProfileDetails();
-  }, []);
 
-  const getProfileDetails = () => {
+  const refresh = async () => {
     setIsLoading(true);
-    getAccountDetails()
-      .then((response: AccountDetailsResponse) => {
-        setAccountId(response.accountId);
-        setName(response.name);
-      })
-      .catch((error: ZentraError) => {
-        const message = error.message;
-        const description = error.description;
-        console.error(`ERROR: ${message}: ${description}`);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    const response = await getAccountDetails();
+    setAccountId(response.accountId);
+    setName(response.name);
+    setIsLoading(false);
   };
 
   return (
     <AccountContext.Provider
-      value={{ accountId, name, isLoading, getProfileDetails }}>
+      value={{ accountId, name, isLoading, refresh }}>
       {children}
     </AccountContext.Provider>
   );

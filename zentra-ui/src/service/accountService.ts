@@ -5,7 +5,8 @@ import type {
 import { ZentraError } from "@/types/ui.types.ts";
 
 export async function getAccountDetails(): Promise<AccountDetailsResponse> {
-  const response = await fetch("http://localhost:8000/v1/me", {
+  // TODO: urls should be env driven
+  const response = await fetch("http://localhost:8080/v1/me", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

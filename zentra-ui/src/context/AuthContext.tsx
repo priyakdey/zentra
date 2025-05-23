@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 interface AuthContextType {
   isLoggedIn: boolean;
-  login: (body: LoginRequest) => void;
+  login: (body: LoginRequest) => Promise<void>;
   signup: (body: NewAccountRequest) => void;
   logout: () => void;
 }
@@ -26,17 +26,9 @@ interface AuthProviderPropsType {
 function AuthProvider({ children }: AuthProviderPropsType) {
   const [ accountId, setAccountId ] = useState<number | undefined>(undefined);
 
-  const login = (body: LoginRequest): void => {
-    authenticateUser(body)
-      .then((response: AuthResponse) => {
-        setAccountId(response.accountId);
-      })
-      .catch((error: ZentraError) => {
-        const message = error.message;
-        const description = error.description;
-        console.error(`ERROR: ${message}: ${description}`);
-        toast.error(message, { description: description });
-      });
+  const login = async (body: LoginRequest): Promise<void> => {
+    const response = await authenticateUser(body);
+    setAccountId(response.accountId);
   };
 
   const signup = (body: NewAccountRequest): void => {
