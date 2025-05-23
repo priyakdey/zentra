@@ -13,6 +13,7 @@ import useAuth from "@/hooks/useAuth.ts";
 import { emailSchema, passwordSchema } from "@/types/schemas.ts";
 import type { ZentraError } from "@/types/ui.types.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LogInIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -93,6 +94,7 @@ function LoginForm() {
         </FormField>
         <Button className="AuthForm-form_btn" type="submit" variant="default">
           Login
+          <LogInIcon />
         </Button>
       </form>
     </Form>

@@ -17,7 +17,6 @@ import "./WelcomePage.css";
 
 function WelcomePage() {
   return (
-
     <AppLayout className="WelcomePage-container">
       <div className="WelcomePage__auth-container">
         <Tabs defaultValue="login" className="WelcomePage__tabs">

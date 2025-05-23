@@ -7,7 +7,7 @@
 .WelcomePage__auth-container {
   height: 550px;
   width: 400px;
-  border-radius: 20px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;

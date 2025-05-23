@@ -6,4 +6,30 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.Footer__name {
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.Footer__name:hover {
+  color: #6D33E8;
+}
+
+.Footer__social-handles {
+  margin-left: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+}
+
+.Footer_thirdparty-brand-logo {
+  height: 16px;
+  width: 16px;
 }

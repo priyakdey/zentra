@@ -7,7 +7,7 @@ interface AuthContextType {
   isLoggedIn: boolean;
   login: (body: LoginRequest) => Promise<void>;
   signup: (body: NewAccountRequest) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -30,9 +30,10 @@ function AuthProvider({ children }: AuthProviderPropsType) {
     setAccountId(response.accountId);
   };
 
-  const logout = () => {
-    // TODO: call logout API
+  const logout = async () => {
+    // TODO properly implement logout
     setAccountId(undefined);
+    return new Promise<void>(() => {});
   };
 
   const isLoggedIn = !!accountId;

@@ -9,6 +9,18 @@
   box-shadow: 0 1px 20px #404040;
 }
 
+.Header__controls-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.Header__controls-name {
+  font-size: 14px;
+}
+
 .Header__logo {
   width: 50px;
   height: 50px;
