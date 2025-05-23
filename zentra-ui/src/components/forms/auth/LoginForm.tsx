@@ -1,3 +1,4 @@
+import PasswordInput from "@/components/input/PasswordInput.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import {
   Form,
@@ -84,8 +85,7 @@ function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password"
-                       placeholder="*******" {...field} />
+                <PasswordInput field={field} />
               </FormControl>
               <FormMessage className="AuthForm_error_message" />
             </FormItem>
