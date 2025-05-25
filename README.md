@@ -5,7 +5,7 @@
 
 <h2 color="#6D33E8">Zentra</h2>
 
-<div>
+</div>
 
 <br />
 
