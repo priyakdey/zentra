@@ -1,6 +1,5 @@
 import zentraLogo from "@/assets/zentra-logo.svg";
 import { Button } from "@/components/ui/button.tsx";
-import { Switch } from "@/components/ui/switch.tsx";
 import useAccount from "@/hooks/useAccount.ts";
 import useAuth from "@/hooks/useAuth.ts";
 import { LogOutIcon } from "lucide-react";
@@ -23,12 +22,12 @@ export function Header() {
     <header className="Header">
       <img src={zentraLogo} alt="zentra" className="Header__logo" />
       <div className="Header__controls">
-        <Switch
-          checked={true}
-          aria-readonly
-          className="Header__colormode-toggle"
-        >
-        </Switch>
+        {/* <Switch */}
+        {/*   checked={true} */}
+        {/*   aria-readonly */}
+        {/*   className="Header__colormode-toggle" */}
+        {/* > */}
+        {/* </Switch> */}
         {
           isLoggedIn && (
             <div className="Header__controls-container">

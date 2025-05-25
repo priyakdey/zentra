@@ -8,8 +8,7 @@ function HomePage() {
   return (
     <AppLayout className="HomePage__layout">
       <div className="HomePage__container">
-        <h1>Welcome to the Home Page, {name}</h1>
-        <p>This is the home page of our application.</p>
+
       </div>
     </AppLayout>
 

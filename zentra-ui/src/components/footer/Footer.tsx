@@ -1,6 +1,6 @@
 import githubLogoDark from "@/assets/github-mark-white.svg";
 import linkedinLogo from "@/assets/linkedin-svgrepo-com.svg";
-import { CopyrightIcon } from "lucide-react";
+import { CopyrightIcon, GlobeIcon } from "lucide-react";
 import { Link } from "react-router";
 import "./Footer.css";
 
@@ -15,6 +15,10 @@ function Footer() {
         Priyak Dey
       </Link>
       <div className="Footer__social-handles">
+        <Link to="https://priyakdey.com" target="_blank"
+              rel="noopener noreferrer">
+          <GlobeIcon className="Footer_thirdparty-brand-logo" />
+        </Link>
         <Link to="https://www.linkedin.com/in/priyakdey/" target="_blank"
               rel="noopener noreferrer">
           <img src={linkedinLogo} alt="Link to Linkedin Page"
