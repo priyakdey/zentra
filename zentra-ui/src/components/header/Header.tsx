@@ -5,11 +5,8 @@ import useAccount from "@/hooks/useAccount.ts";
 import useAuth from "@/hooks/useAuth.ts";
 import { LogOutIcon } from "lucide-react";
 import "./Header.css";
-import { useState } from "react";
 
 export function Header() {
-  const [ isDark, setIsDark ] = useState<boolean>(() => document.documentElement.classList.contains("dark"));
-
   const { isLoggedIn, logout } = useAuth();
   const { name } = useAccount();
 
@@ -21,12 +18,6 @@ export function Header() {
     }
   };
 
-  const toggleColorMode = (checked: boolean) => {
-    const html = document.documentElement;
-    html.classList.toggle("dark");
-    html.classList.toggle("light");
-    setIsDark(checked);
-  };
 
   return (
     <header className="Header">
@@ -34,7 +25,6 @@ export function Header() {
       <div className="Header__controls">
         <Switch
           checked={true}
-          onCheckedChange={() => toggleColorMode(isDark)}
           aria-readonly
           className="Header__colormode-toggle"
         >

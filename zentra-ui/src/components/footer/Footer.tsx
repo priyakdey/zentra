@@ -1,13 +1,10 @@
 import githubLogoDark from "@/assets/github-mark-white.svg";
-import githubLogoLight from "@/assets/github-mark.svg";
 import linkedinLogo from "@/assets/linkedin-svgrepo-com.svg";
 import { CopyrightIcon } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-router";
 import "./Footer.css";
 
 function Footer() {
-  const [ isDark, setIsDark ] = useState<boolean>(document.documentElement.classList.contains("dark"));
 
   return (
     <footer className="Footer">
@@ -25,13 +22,8 @@ function Footer() {
         </Link>
         <Link to="https://github.com/priyakdey/zentra" target="_blank"
               rel="noopener noreferrer">
-          {
-            isDark
-              ? <img src={githubLogoDark} alt="Link to github repository"
-                     className="Footer_thirdparty-brand-logo" />
-              : <img src={githubLogoLight} alt="Link to github repository"
-                     className="Footer_thirdparty-brand-logo" />
-          }
+          <img src={githubLogoDark} alt="Link to github repository"
+               className="Footer_thirdparty-brand-logo" />
         </Link>
       </div>
     </footer>

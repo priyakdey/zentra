@@ -9,6 +9,7 @@ interface AppLayoutPropsType {
 }
 
 function AppLayout({ children, className }: AppLayoutPropsType) {
+
   return (
     <div className="AppLayout">
       <Header />
