@@ -10,6 +10,11 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface NewTaskRequest {
+  title: string;
+  tentativeCompletionDate: string | null;
+}
+
 /* Response Types Start */
 
 export interface AuthResponse {
@@ -24,4 +29,13 @@ export interface AccountDetailsResponse {
 export interface ErrorResponse {
   message: string;
   description: string;
+}
+
+export interface TaskResponse {
+  id: number;
+  title: string;
+  isCompleted: boolean;
+  tentativeCompletionDate: string | null;
+  createdAt: string;
+  completedAt: string | null;
 }

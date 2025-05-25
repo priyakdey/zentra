@@ -1,5 +1,6 @@
+import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
-import { Switch } from "@/components/ui/switch.tsx";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import type { ControllerRenderProps, FieldValues } from "react-hook-form";
 import "./PasswordInput.css";
@@ -23,13 +24,13 @@ function PasswordInput({ field }: PasswordInputPropsType) {
         className="PasswordInput__field"
         {...field}
       />
-      <Switch
-        checked={showPassword}
-        onCheckedChange={togglePasswordVisibility}
-        aria-readonly
-        disabled={field.value === ""}
-        className="PasswordInput__toggle"
-      />
+      <Button type="button"
+              variant="ghost"
+              className="PasswordInput__toggle-btn"
+              onClick={togglePasswordVisibility}
+      >
+        {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+      </Button>
     </div>
   );
 }

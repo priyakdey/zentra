@@ -1,9 +1,6 @@
 package com.priyakdey.com.zentra.exception.handler;
 
-import com.priyakdey.com.zentra.exception.AccountNotFoundException;
-import com.priyakdey.com.zentra.exception.EmailExistsException;
-import com.priyakdey.com.zentra.exception.InvalidCredentialsException;
-import com.priyakdey.com.zentra.exception.InvalidRequestException;
+import com.priyakdey.com.zentra.exception.*;
 import com.priyakdey.com.zentra.model.response.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +39,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(UNAUTHORIZED).body(errorResponse);
     }
 
-    @ExceptionHandler(AccountNotFoundException.class)
+    @ExceptionHandler({AccountNotFoundException.class, TaskNotFoundException.class})
     public ResponseEntity<ErrorResponse> AccountNotFoundException() {
         return ResponseEntity.notFound().build();
     }

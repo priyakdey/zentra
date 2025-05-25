@@ -17,3 +17,12 @@ export class ZentraError extends Error {
     this.status = status;
   }
 }
+
+export interface Task {
+  id: number;
+  title: string;
+  isCompleted: boolean;
+  tentativeCompletionDate: string | null;
+  createdAt: string;
+  completedAt: string | null;
+}

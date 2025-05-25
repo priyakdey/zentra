@@ -8,7 +8,7 @@ function HomePage() {
   return (
     <AppLayout className="HomePage__layout">
       <div className="HomePage__container">
-
+        <h1>Welcome, {name}</h1>
       </div>
     </AppLayout>
 
