@@ -71,7 +71,9 @@ function LoginForm() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input type="email"
-                       placeholder="johndoe@example.com" {...field} />
+                       placeholder="johndoe@example.com"
+                       autoComplete={"email"} {...field}
+                />
               </FormControl>
               <FormMessage className="AuthForm_error_message" />
             </FormItem>

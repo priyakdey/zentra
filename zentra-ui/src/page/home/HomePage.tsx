@@ -1,14 +1,16 @@
+import TasksList from "@/components/task/list/TaskList.tsx";
 import useAccount from "@/hooks/useAccount.ts";
 import AppLayout from "../layout/AppLayout";
 import "./HomePage.css";
 
 function HomePage() {
-  const { name } = useAccount();
+  const { inCompleteTasks, completedTasks } = useAccount();
 
   return (
-    <AppLayout className="HomePage__layout">
-      <div className="HomePage__container">
-        <h1>Welcome, {name}</h1>
+    <AppLayout>
+      <div className="HomePage__task-list-section">
+        <TasksList tasks={inCompleteTasks} />
+        <TasksList tasks={completedTasks} />
       </div>
     </AppLayout>
 

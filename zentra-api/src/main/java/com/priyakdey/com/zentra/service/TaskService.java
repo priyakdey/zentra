@@ -11,7 +11,7 @@ public interface TaskService {
 
     TaskDto createTask(int accountId, TaskDto taskDto);
 
-    List<TaskDto> getAllTasksFor(int accountId);
+    List<TaskDto>[] getAllTasksFor(int accountId);
 
     void markTaskAsCompleted(int accountId, int taskId);
 }

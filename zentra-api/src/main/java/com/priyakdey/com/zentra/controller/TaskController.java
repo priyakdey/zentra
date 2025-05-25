@@ -52,9 +52,14 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<TasksResponse> getTasks(Principal principal) {
-        List<TaskDto> allTasks = taskService.getAllTasksFor(Integer.parseInt(principal.getName()));
+        List<TaskDto>[] allTasks = taskService.getAllTasksFor(Integer.parseInt(principal.getName()));
+        List<TaskDto> inCompleteTasks = allTasks[0];
+        List<TaskDto> completedTasks = allTasks[1];
+
         TasksResponse tasksResponse = new TasksResponse();
-        tasksResponse.setTasks(allTasks);
+        tasksResponse.setInCompleteTasks(inCompleteTasks);
+        tasksResponse.setCompletedTasks(completedTasks);
+
         return ResponseEntity.ok(tasksResponse);
     }
 

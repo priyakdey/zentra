@@ -15,6 +15,20 @@ export interface NewTaskRequest {
   tentativeCompletionDate: string | null;
 }
 
+export interface TaskDto {
+  id: number;
+  title: string;
+  isCompleted: boolean;
+  tentativeCompletionDate: string | null;
+  createdAt: string;
+  completedAt: string | null;
+}
+
+export interface TasksResponse {
+  inCompleteTasks: TaskDto[];
+  completedTasks: TaskDto[];
+}
+
 /* Response Types Start */
 
 export interface AuthResponse {

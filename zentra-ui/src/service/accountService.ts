@@ -21,5 +21,5 @@ export async function getAccountDetails(): Promise<AccountDetailsResponse> {
     throw new ZentraError(errorResponse.message, errorResponse.description, status);
   }
 
-  return await response.json();
+  return await response.json() as AccountDetailsResponse;
 }

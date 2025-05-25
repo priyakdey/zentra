@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
 import java.time.ZonedDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,13 +43,28 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<TaskDto> getAllTasksFor(int accountId) {
+    public List<TaskDto>[] getAllTasksFor(int accountId) {
         Account hollowAccount = new Account();
         hollowAccount.setId(accountId);
 
-        return taskRepository.findAllByAccount(hollowAccount).stream()
-                .map(TaskDto::from)
+        List<TaskDto> taskDtos = taskRepository.findAllByAccount(hollowAccount).stream()
+                .map(TaskDto::from).toList();
+
+        Comparator<TaskDto> compareFn = Comparator.comparing(TaskDto::tentativeCompletionDate,
+                Comparator.nullsLast(Comparator.naturalOrder()))
+                .thenComparing(TaskDto::createdAt);
+
+        List<TaskDto> inCompleteTasks = taskDtos.stream()
+                .filter(taskDto -> !taskDto.isCompleted())
+                .sorted(compareFn)
                 .toList();
+
+        List<TaskDto> completedTasks = taskDtos.stream()
+                .filter(TaskDto::isCompleted)
+                .sorted(Comparator.comparing(TaskDto::completedAt).reversed())
+                .toList();
+
+        return new List[]{inCompleteTasks, completedTasks};
     }
 
     @Override
@@ -64,7 +80,7 @@ public class TaskServiceImpl implements TaskService {
         if (task.getAccount().getId() != accountId) {
             throw new TaskNotFoundException();  // TODO: maybe a different exception with 403?
         }
-        
+
         task.setCompleted(true);
         task.setCompletedAt(ZonedDateTime.now(Clock.systemUTC()));
         taskRepository.save(task);

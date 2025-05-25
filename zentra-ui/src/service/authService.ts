@@ -24,7 +24,7 @@ export async function createAccount(accountRequest: NewAccountRequest): Promise<
     throw new ZentraError(errorResponse.message, errorResponse.description, status);
   }
 
-  return await response.json();
+  return await response.json() as AuthResponse;
 }
 
 export async function authenticateUser(authRequest: LoginRequest): Promise<AuthResponse> {
@@ -45,5 +45,5 @@ export async function authenticateUser(authRequest: LoginRequest): Promise<AuthR
     throw new ZentraError(errorResponse.message, errorResponse.description, status);
   }
 
-  return await response.json();
+  return await response.json() as AuthResponse;
 }

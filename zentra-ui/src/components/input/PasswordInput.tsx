@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
-import type { ControllerRenderProps, FieldValues } from "react-hook-form";
+import type { ControllerRenderProps } from "react-hook-form";
 import "./PasswordInput.css";
 
 interface PasswordInputPropsType {
-  field: ControllerRenderProps<FieldValues, string>;
+  field: ControllerRenderProps<TFieldValues, TName>;
 }
 
 function PasswordInput({ field }: PasswordInputPropsType) {
@@ -22,6 +22,7 @@ function PasswordInput({ field }: PasswordInputPropsType) {
         type={showPassword ? "text" : "password"}
         placeholder="********"
         className="PasswordInput__field"
+        autoComplete="password"
         {...field}
       />
       <Button type="button"
