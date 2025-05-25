@@ -13,6 +13,9 @@
 
 Zentra is a Todo application designed for simplicity, speed, and secure authentication. The main purpose of this project is learning.
 
+[![Watch the video]("./zentra-logo.svg")](https://youtu.be/5Ed54gYiMyY)
+
+
 > [!WARNING]
 > This is a personal educational project. Features are intentionally designed based on what I want to explore technically.
 > As a result, you may find areas of both over-engineering and under-engineering.
