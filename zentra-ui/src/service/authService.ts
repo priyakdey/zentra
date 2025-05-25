@@ -47,3 +47,22 @@ export async function authenticateUser(authRequest: LoginRequest): Promise<AuthR
 
   return await response.json() as AuthResponse;
 }
+
+export async function logoutUser(): Promise<void> {
+  const response = await fetch("http://localhost:8080/v1/me/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    credentials: "include"
+  });
+
+  const status = response.status;
+  if (status !== 200) {
+    const errorResponse: ErrorResponse = await response.json();
+    throw new ZentraError(errorResponse.message, errorResponse.description, status);
+  }
+
+  return Promise.resolve();
+}

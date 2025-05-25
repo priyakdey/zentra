@@ -7,3 +7,8 @@
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.HomePage__no-tasks  {
+  font-style: italic;
+  color: var(--ring);
+}

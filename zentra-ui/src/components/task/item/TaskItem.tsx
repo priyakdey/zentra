@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge.tsx";
 import { Button } from "@/components/ui/button";
+import useAccount from "@/hooks/useAccount.ts";
 import type { Task } from "@/types/ui.types.ts";
 import { CheckIcon } from "lucide-react";
 import "./TaskItem.css";
@@ -36,6 +37,7 @@ function urgencyColor(dueDate: Date | null): string {
 }
 
 function TaskItem({ task }: TaskItemPropsType) {
+  const { completeTask } = useAccount();
 
   const tentativeDate = dateFormat(task.tentativeCompletionDate);
   const completedAt = dateFormat(task.completedAt);
@@ -68,7 +70,9 @@ function TaskItem({ task }: TaskItemPropsType) {
         {
           !task.isCompleted && (
             <Button type="button" variant="destructive"
-                    className="TaskItem__complete-button">
+                    className="TaskItem__complete-button"
+                    onClick={() => completeTask(task.id)}
+            >
               <CheckIcon height={10} width={10} />
             </Button>
           )

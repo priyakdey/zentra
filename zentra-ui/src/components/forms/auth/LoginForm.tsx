@@ -49,9 +49,7 @@ function LoginForm() {
     } catch(error) {
       const err = error as ZentraError;
       if (err.status === 401 || err.status === 403) {
-        toast.error("Session expired", {
-          description: "Please log in again to continue."
-        });
+        toast.error(err.message, { description: err.description });
         navigate("/", { replace: true });
       } else {
         toast.error(err.message, { description: err.description });

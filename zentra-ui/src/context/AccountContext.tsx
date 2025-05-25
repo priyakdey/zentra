@@ -1,5 +1,9 @@
 import { getAccountDetails } from "@/service/accountService.ts";
-import { createTask, fetchAllTasks } from "@/service/taskService.ts";
+import {
+  createTask,
+  fetchAllTasks,
+  markTaskComplete
+} from "@/service/taskService.ts";
 import type { NewTaskRequest, TaskDto } from "@/types/api.types.ts";
 import type { Task } from "@/types/ui.types.ts";
 import * as React from "react";
@@ -14,6 +18,7 @@ interface AccountContextType {
   inCompleteTasks: Task[];
   completedTasks: Task[];
   createNewTask: (newTaskRequest: NewTaskRequest) => Promise<void>;
+  completeTask: (taskId: number) => Promise<void>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -42,16 +47,18 @@ function AccountProvider({ children }: AccountProviderPropTypes) {
   const [ inCompleteTasks, setInCompleteTasks ] = useState<Task[]>([]);
   const [ completedTasks, setCompletedTasks ] = useState<Task[]>([]);
 
+  const refreshTasks = async () => {
+    const taskResponse = await fetchAllTasks();
+    setInCompleteTasks(taskResponse.inCompleteTasks.map(mapToTask));
+    setCompletedTasks(taskResponse.completedTasks.map(mapToTask));
+  };
+
   const refresh = async () => {
     setIsLoading(true);
     const accountDetailsResponse = await getAccountDetails();
     setAccountId(accountDetailsResponse.accountId);
     setName(accountDetailsResponse.name);
-
-    const taskResponse = await fetchAllTasks();
-    setInCompleteTasks(taskResponse.inCompleteTasks.map(mapToTask));
-    setCompletedTasks(taskResponse.completedTasks.map(mapToTask));
-
+    await refreshTasks();
     setIsLoading(false);
   };
 
@@ -59,13 +66,15 @@ function AccountProvider({ children }: AccountProviderPropTypes) {
 
   const createNewTask = async (newTaskRequest: NewTaskRequest) => {
     await createTask(newTaskRequest);
-
     setIsLoading(true);
+    await refreshTasks();
+    setIsLoading(false);
+  };
 
-    const taskResponse = await fetchAllTasks();
-    setInCompleteTasks(taskResponse.inCompleteTasks.map(mapToTask));
-    setCompletedTasks(taskResponse.completedTasks.map(mapToTask));
-
+  const completeTask = async (taskId: number) => {
+    setIsLoading(true);
+    await markTaskComplete(taskId);
+    await refreshTasks();
     setIsLoading(false);
   };
 
@@ -79,7 +88,8 @@ function AccountProvider({ children }: AccountProviderPropTypes) {
         isSessionLoading,
         inCompleteTasks,
         completedTasks,
-        createNewTask
+        createNewTask,
+        completeTask
       }}>
       {children}
     </AccountContext.Provider>

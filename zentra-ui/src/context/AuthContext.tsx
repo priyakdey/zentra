@@ -1,4 +1,8 @@
-import { authenticateUser, createAccount } from "@/service/authService.ts";
+import {
+  authenticateUser,
+  createAccount,
+  logoutUser
+} from "@/service/authService.ts";
 import type { LoginRequest, NewAccountRequest } from "@/types/api.types.ts";
 import * as React from "react";
 import { createContext, useState } from "react";
@@ -31,9 +35,9 @@ function AuthProvider({ children }: AuthProviderPropsType) {
   };
 
   const logout = async () => {
-    // TODO properly implement logout
+    await logoutUser();
     setAccountId(undefined);
-    return new Promise<void>(() => {});
+    return Promise.resolve();
   };
 
   const isLoggedIn = !!accountId;
