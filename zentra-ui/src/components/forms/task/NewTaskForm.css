@@ -1,0 +1,11 @@
+.NewTaskForm__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 50%;
+}
+
+.NewTaskForm__form-button-container {
+  display: flex;
+  justify-content: space-evenly;
+}

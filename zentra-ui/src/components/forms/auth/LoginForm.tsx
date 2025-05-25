@@ -1,4 +1,4 @@
-import PasswordInput from "@/components/input/PasswordInput.tsx";
+import PasswordInput from "@/components/input/password/PasswordInput.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import {
   Form,

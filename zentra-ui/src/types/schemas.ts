@@ -11,3 +11,10 @@ export const emailSchema = z.string()
 export const passwordSchema = z.string()
   .min(8, "Password must be between 8 and 25 characters")
   .max(25, "Password must be between 8 and 25 characters");
+
+export const titleSchema = z.string()
+  .min(1, "Title is required");
+
+export const tentativeCompletionDateSchema = z.date()
+  .min(new Date(), "Tentative completion date cannot be in the past")
+  .nullable();

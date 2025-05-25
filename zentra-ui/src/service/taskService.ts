@@ -5,7 +5,7 @@ import type {
 } from "@/types/api.types";
 import { type Task, ZentraError } from "@/types/ui.types";
 
-export async function createNewTask(newTaskRequest: NewTaskRequest): Promise<Task> {
+export async function createTask(newTaskRequest: NewTaskRequest): Promise<Task> {
   const response = await fetch("http://localhost:8080/v1/me/tasks", {
     method: "POST",
     headers: {

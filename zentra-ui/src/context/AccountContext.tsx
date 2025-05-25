@@ -1,6 +1,6 @@
 import { getAccountDetails } from "@/service/accountService.ts";
-import { fetchAllTasks } from "@/service/taskService.ts";
-import type { TaskDto } from "@/types/api.types.ts";
+import { createTask, fetchAllTasks } from "@/service/taskService.ts";
+import type { NewTaskRequest, TaskDto } from "@/types/api.types.ts";
 import type { Task } from "@/types/ui.types.ts";
 import * as React from "react";
 import { createContext, useState } from "react";
@@ -13,6 +13,7 @@ interface AccountContextType {
   refresh: () => Promise<void>;
   inCompleteTasks: Task[];
   completedTasks: Task[];
+  createNewTask: (newTaskRequest: NewTaskRequest) => Promise<void>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -56,6 +57,18 @@ function AccountProvider({ children }: AccountProviderPropTypes) {
 
   const isSessionLoading = !isLoading && !!accountId;
 
+  const createNewTask = async (newTaskRequest: NewTaskRequest) => {
+    await createTask(newTaskRequest);
+
+    setIsLoading(true);
+
+    const taskResponse = await fetchAllTasks();
+    setInCompleteTasks(taskResponse.inCompleteTasks.map(mapToTask));
+    setCompletedTasks(taskResponse.completedTasks.map(mapToTask));
+
+    setIsLoading(false);
+  };
+
   return (
     <AccountContext.Provider
       value={{
@@ -65,7 +78,8 @@ function AccountProvider({ children }: AccountProviderPropTypes) {
         refresh,
         isSessionLoading,
         inCompleteTasks,
-        completedTasks
+        completedTasks,
+        createNewTask
       }}>
       {children}
     </AccountContext.Provider>

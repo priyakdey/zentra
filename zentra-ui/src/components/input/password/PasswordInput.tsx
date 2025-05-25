@@ -6,7 +6,8 @@ import type { ControllerRenderProps } from "react-hook-form";
 import "./PasswordInput.css";
 
 interface PasswordInputPropsType {
-  field: ControllerRenderProps<TFieldValues, TName>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  field: ControllerRenderProps<any, any>;
 }
 
 function PasswordInput({ field }: PasswordInputPropsType) {
